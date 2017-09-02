@@ -1,0 +1,101 @@
+html {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    font-family: 'Lato', 'Arial', 'sans-serif';
+    font-size: 20px;
+    font-weight: 300;
+    
+}
+
+.hero-title-box {
+  position:absolute;
+  top: 10%;
+  left:50%;
+  transform: translate(-50%, -50%);
+}
+
+H1 {
+  margin:0;
+  font-size: 200%;
+  font-weight:300;
+  letter-spacing:1px;
+  text-transform: uppercase;
+}
+
+H2 {
+  margin:0;
+  font-size: 130%;
+  font-weight:200;
+  letter-spacing:1px;
+  text-transform: uppercase;
+}
+
+
+section {
+  padding: 80px 0;
+}
+
+.long-copy{
+  line-height: 145%;
+  width: 70%;
+  margin-left: 15%;
+  margin-right: 15%;
+}
+
+.section-features {
+
+}
+
+.handle-counter { 
+  
+   }
+
+.handle-counter .counter-minus,  .handle-counter .counter-plus,  .handle-counter input {
+  float: left;
+  text-align: center;
+}
+
+.handle-button  {
+  float: left;
+  padding-left: 50px;
+  border: 1px solid black;
+  text-align: center;
+}
+
+.handle-counter .counter-minus,  .handle-counter .counter-plus { text-align: center; }
+
+.handle-counter input {
+  width: 10%;
+  border-width: 1px;
+  border-left: none;
+  border-right: none;
+}
+
+.btn {
+  padding: 6px 12px;
+  border: 1px solid transparent;
+  color: #fff;
+}
+
+.btn:disabled, .btn:disabled:hover {
+  background-color: darkgrey;
+  cursor: not-allowed;
+}
+
+.btn-primary { background-color: #009dda; }
+
+.btn-primary:hover, .btn-primary:focus { background-color: #0486b9; }
+
+
+.leftcontent {
+  text-align: center;
+  float: left;
+  width: 30%;
+  border: 1px solid red;
+}
+
+.centercontent {
+  float: left;
+  width: 60%;
+  border: 1px solid green; 
+}
