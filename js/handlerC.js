@@ -22,11 +22,15 @@ return $handleCounter
 
 
     var $input = $('#handleCounter').find('input');
-
+    var timeintervalID; 
 
 
     $('.start').click(function () {
             myFunction();
+    })
+
+    $('.annul').click(function () {
+            stopCounter();
     })
 
 
@@ -35,7 +39,7 @@ return $handleCounter
           if(num <= 58) {
               $input.val(num + 1);
             changeVal(num + 1);
-           }
+            }
         
     })
 
@@ -58,7 +62,7 @@ return $handleCounter
     var num = parseInt($input.val());
     var start = new Date().getTime();
     var countDownDate = addMinutes(start,num);
-    var timeinterval = setInterval(function(){ 
+    timeintervalID = setInterval(function(){ 
     
     var now = new Date().getTime();
     var distance = countDownDate - now;
@@ -71,6 +75,10 @@ return $handleCounter
   function addMinutes(date, minutes) {  
       return new Date(date + minutes*60000);
   }
+
+   function stopCounter() {
+      clearInterval(timeintervalID);
+    }
 
 
 
