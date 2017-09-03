@@ -24,13 +24,18 @@ return $handleCounter
     var $input = $('#handleCounter').find('input');
 
 
+
+    $('.start').click(function () {
+            myFunction();
+    })
+
+
     $('.counter-plus').click(function () {
           var num = parseInt($input.val());
           if(num <= 58) {
               $input.val(num + 1);
             changeVal(num + 1);
-            console.log('input is ');
-          }
+           }
         
     })
 
@@ -39,7 +44,6 @@ return $handleCounter
           if(num > 0) {
             $input.val(num - 1);
             changeVal(num - 1);
-            console.log('input is ');
           }
 
 
@@ -50,6 +54,23 @@ return $handleCounter
       console.log('change val '+num);
     }
 
+  function myFunction() {
+    var num = parseInt($input.val());
+    var start = new Date().getTime();
+    var countDownDate = addMinutes(start,num);
+    var timeinterval = setInterval(function(){ 
+    
+    var now = new Date().getTime();
+    var distance = countDownDate - now;
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    document.getElementById("demo").innerHTML = minutes + "m " + seconds + "s ";
+    }, 1000);
+  }
+
+  function addMinutes(date, minutes) {  
+      return new Date(date + minutes*60000);
+  }
 
 
 
