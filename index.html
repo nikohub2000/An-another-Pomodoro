@@ -3,6 +3,7 @@
  <head>
 <title>Pomodoro</title>
 <link href="css/style.css" type="text/css" rel="stylesheet">
+<link href="vendor/css/Grid.css" type="text/css" rel="stylesheet">
 <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,300italic' type='text/css' rel='stylesheet'>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta content="all" name="robots">
@@ -42,13 +43,21 @@ History
 <div class="centercontent">
 center panel.
 <section>
+
+<div class="row">
+<div class="col span-1of-3">
+
+Task Title: <input type="text" name="task">
+
 <div class="handle-counter" id="handleCounter">
   <button  class="counter-minus btn btn-primary">-</button>
   <input type="text" value="3">
   <button class="counter-plus btn btn-primary">+</button>
-
-  
 </div>
+
+</div>
+<div class="col span-1of-3">
+
 
 <div class="handle-button">
 Operations.
@@ -65,7 +74,21 @@ Operations.
 </ul>
 </div>
 
+</div>
+<div class="col span-1of-3">
+
+
 <div class="handle-display">right side of the panel Horloge.<p id="demo"></p></div>
+
+
+</div>
+
+</div>
+
+
+
+
+
 
 </section>
 </div>

@@ -59,6 +59,7 @@ return $handleCounter
     }
 
   function myFunction() {
+
     var num = parseInt($input.val());
     var start = new Date().getTime();
     var countDownDate = addMinutes(start,num);
@@ -86,6 +87,17 @@ return $handleCounter
 
 
 
+
 })( jQuery );
+
+
+
+class Task {
+  constructor(title, date, duration) {
+    this.title = title;
+    this.date = date;
+    this.duration = duration;
+  }
+}
 
 
