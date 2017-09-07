@@ -20,6 +20,10 @@
 
     var $input = $('#handleCounter').find('input');
     var timeintervalID;
+    var  startTime;
+    var num;
+    var startDate;
+    var tasks = [];
 //    var histos = ['exercice','prog','learning'];
 //    update_list(histos);
 
@@ -49,13 +53,11 @@
 
 
 
-
-
-
     function counter() {
-        var num = parseInt($input.val());
-        var start = new Date().getTime();
-        var countDownDate = addMinutes(start, num);
+        startDate = new Date();
+        num = parseInt($input.val());
+        startTime = new Date().getTime();
+        var countDownDate = addMinutes(startTime, num);
         timeintervalID = setInterval(function() {
             var now = new Date().getTime();
             var distance = countDownDate - now;
@@ -76,15 +78,21 @@
 
     function stopCounter() {
         clearInterval(timeintervalID);
+        var usernametemp = $('input:text[id=taskname]').val();
+
+        var task = new Task(usernametemp,startDate,num);
+        tasks.push(task);
+        update_list(tasks);
+
     }
 
-    function update_list(updated_users) {
+    function update_list(updated) {
 
       // clear the existing list
-      console.log(updated_users);
-      $.each(updated_users, function(index,value) {
-        console.log('name '+value);
-        $('#list .list').append('<li>'+value+'</li>')
+      console.log(updated);
+      $.each(updated, function(index,task) {
+        
+        $('#list .list').append('<li>'+task.title+'</li>')
       });
 
     }
@@ -101,157 +109,157 @@
 
 //////  Javascript Database //////
 
-var createStatement = 'CREATE TABLE IF NOT EXISTS ESSAI (id integer primary key,title char(50) not null,date real,duration real)';
+// var createStatement = 'CREATE TABLE IF NOT EXISTS ESSAI (id integer primary key,title char(50) not null,date real,duration real)';
  
-var selectAllStatement = "SELECT * FROM ESSAI";
+// var selectAllStatement = "SELECT * FROM ESSAI";
  
-var insertStatement = "INSERT INTO ESSAI (title, date, duration) VALUES (?, ?, ?)";
+// var insertStatement = "INSERT INTO ESSAI (title, date, duration) VALUES (?, ?, ?)";
  
- var db = openDatabase("PomodoroBook", "1.0", "Pomodoro Book", 200000);  // Open SQLite Database
+//  var db = openDatabase("PomodoroBook", "1.0", "Pomodoro Book", 200000);  // Open SQLite Database
  
-var dataset;
+// var dataset;
  
-var DataType;
+// var DataType;
 
 
-function initDatabase()  // Function Call When Page is ready.
+// function initDatabase()  // Function Call When Page is ready.
  
-{
+// {
  
-    try {
+//     try {
  
-        if (!window.openDatabase)  // Check browser is supported SQLite or not.
+//         if (!window.openDatabase)  // Check browser is supported SQLite or not.
  
-        {
+//         {
  
-            alert('Databases are not supported in this browser.');
+//             alert('Databases are not supported in this browser.');
  
-        }
+//         }
  
-        else {
+//         else {
  
-            createTable();  // If supported then call Function for create table in SQLite
+//             createTable();  // If supported then call Function for create table in SQLite
  
-        }
+//         }
  
-    }
+//     }
  
-    catch (e) {
+//     catch (e) {
  
-        if (e == 2) {
+//         if (e == 2) {
  
-            // Version number mismatch. 
+//             // Version number mismatch. 
  
-            console.log("Invalid database version.");
+//             console.log("Invalid database version.");
  
-        } else {
+//         } else {
  
-            console.log("Unknown error " + e + ".");
+//             console.log("Unknown error " + e + ".");
  
-        }
+//         }
  
-        return;
+//         return;
  
-    }
+//     }
  
-}
+// }
 
 
-function createTable()  // Function for Create Table in SQLite.
+// function createTable()  // Function for Create Table in SQLite.
  
-{
+// {
  
-    db.transaction(function (tx) { tx.executeSql(createStatement, [], showRecords, onError); });
+//     db.transaction(function (tx) { tx.executeSql(createStatement, [], showRecords, onError); });
  
-}
+// }
 
 
-function insertRecord() // Get value from Input and insert record . Function Call when Save/Submit Button Click..
+// function insertRecord() // Get value from Input and insert record . Function Call when Save/Submit Button Click..
  
-{
-        var d = datePicker();
-        console.log(d);
-        var usernametemp = $('input:text[id=taskname]').val();
+// {
+//         var d = datePicker();
+//         console.log(d);
+//         var usernametemp = $('input:text[id=taskname]').val();
  
-        var useremailtemp = $('input:text[id=duration]').val();
-        db.transaction(function (tx) { tx.executeSql(insertStatement, [usernametemp, d, useremailtemp], loadAndReset, onError); 
-        });
+//         var useremailtemp = $('input:text[id=duration]').val();
+//         db.transaction(function (tx) { tx.executeSql(insertStatement, [usernametemp, d, useremailtemp], loadAndReset, onError); 
+//         });
  
-        //tx.executeSql(SQL Query Statement,[ Parameters ] , Sucess Result Handler Function, Error Result Handler Function );
+//         //tx.executeSql(SQL Query Statement,[ Parameters ] , Sucess Result Handler Function, Error Result Handler Function );
  
-}
+// }
 
-function datePicker() {
-      var dateFormat = require('dateformat');
-      var now = new Date();
-      return dateFormat(now, "dddd, mmmm dS, yyyy, h:MM:ss TT");
-}
+// function datePicker() {
+//       var dateFormat = require('dateformat');
+//       var now = new Date();
+//       return dateFormat(now, "dddd, mmmm dS, yyyy, h:MM:ss TT");
+// }
 
-function onError(tx, error) // Function for Hendeling Error...
+// function onError(tx, error) // Function for Hendeling Error...
  
-{
+// {
  
-    alert(error.message);
+//     alert(error.message);
  
-}
+// }
 
-function loadAndReset() //Function for Load and Reset...
+// function loadAndReset() //Function for Load and Reset...
  
-{
-    showRecords()
-}
+// {
+//     showRecords()
+// }
 
 
-function showRecords() // Function For Retrive data from Database Display records as list
+// function showRecords() // Function For Retrive data from Database Display records as list
  
-{
+// {
  
-    $("#results").html('')
+//     $("#results").html('')
  
-    db.transaction(function (tx) {
+//     db.transaction(function (tx) {
  
-        tx.executeSql(selectAllStatement, [], function (tx, result) {
+//         tx.executeSql(selectAllStatement, [], function (tx, result) {
  
-            dataset = result.rows;
+//             dataset = result.rows;
  
-            for (var i = 0, item = null; i < dataset.length; i++) {
+//             for (var i = 0, item = null; i < dataset.length; i++) {
  
-                item = dataset.item(i);
-                var d = item['date'];
+//                 item = dataset.item(i);
+//                 var d = item['date'];
 
-                console.log('date '+d.getFullYear());
+//                 console.log('date '+d.getFullYear());
                 
-                var linkeditdelete = '<li>' + item['title'] + ' , ' + item['date'] + ' , ' + item['duration'] + '</li>';
+//                 var linkeditdelete = '<li>' + item['title'] + ' , ' + item['date'] + ' , ' + item['duration'] + '</li>';
  
-                $("#results").append(linkeditdelete);
+//                 $("#results").append(linkeditdelete);
  
-            }
+//             }
  
-        });
+//         });
  
-    });
+//     });
  
-}
+// }
 
-$(document).ready(function () // Call function when page is ready for load..
+// $(document).ready(function () // Call function when page is ready for load..
  
-{
-;
+// {
+// ;
  
-    $("body").fadeIn(2000); // Fede In Effect when Page Load..
+//     $("body").fadeIn(2000); // Fede In Effect when Page Load..
  
-    initDatabase();
+//     initDatabase();
  
-       // Register Event Listener when button click.
-     $(".start").click(insertRecord);
+//        // Register Event Listener when button click.
+//      $(".start").click(insertRecord);
  
-    // $("#btnUpdate").click(updateRecord);
+//     // $("#btnUpdate").click(updateRecord);
  
-    // $("#btnReset").click(resetForm);
+//     // $("#btnReset").click(resetForm);
  
-    // $("#btnDrop").click(dropTable);
+//     // $("#btnDrop").click(dropTable);
  
-});
+// });
 
 
 
