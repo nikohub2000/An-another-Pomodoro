@@ -35,6 +35,10 @@ section {
   padding: 50px 0;
 }
 
+li {
+  list-style-position: inside;
+}
+
 .long-copy{
   line-height: 145%;
   width: 70%;
@@ -99,3 +103,13 @@ section {
   width: 60%;
   border: 1px solid green; 
 }
+
+#list {
+  width: 100%; 
+  overflow: hidden;
+}
+
+
+#list ul { list-style: none; list-style-position: inside; float: left; display: block; left: 30%; }
+
+
