@@ -52,10 +52,15 @@
     var num;
     var startDate;
     var tasks = [];
+    var dbTasks = [];
     initDatabase();
     console.log('*** INIT DATABASE ***');
+    dbTasks = showRecords();
+    console.log('*** LOAD RECORDS ***');
+    console.log('*** FOUND '+dbTasks.length+' RECORDS ***');
+
 //    var histos = ['exercice','prog','learning'];
-    update_list();
+    update_list(dbTasks);
 
 
     $('.start').click(function() {
@@ -246,6 +251,7 @@ function showRecords() // Function For Retrive data from Database Display record
  
                 item = dataset.item(i);
                 items.push(item);
+
                 var d = item['date'];
 
                 
@@ -260,6 +266,7 @@ function showRecords() // Function For Retrive data from Database Display record
         });
  
     });
+    return items;
  
 }
 
