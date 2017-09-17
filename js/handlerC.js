@@ -119,7 +119,8 @@
 
         var task = new Task(usernametemp,startDate,num);
         tasks.push(task);
-        update_list(tasks);
+        insertRecord(task);
+        //update_list(tasks);
 
 
     }
@@ -206,8 +207,6 @@ function createTable()  // Function for Create Table in SQLite.
 function insertRecord(task) // Get value from Input and insert record . Function Call when Save/Submit Button Click..
  
 {
-        var d = datePicker();
-        console.log(d);
         var usernametemp = $('input:text[id=taskname]').val();
  
         var useremailtemp = $('input:text[id=duration]').val();
@@ -232,40 +231,59 @@ function onError(tx, error) // Function for Hendeling Error...
  
 }
 
-// function loadAndReset() //Function for Load and Reset...
+function loadAndReset() //Function for Load and Reset...
  
-// {
-//     showRecords()
-// }
+{
+    showRecords()
+}
 
 
 function showRecords() // Function For Retrive data from Database Display records as list
 {
-    console.log('database '+db);
-    $("#results").html('')
     var items = [];
+
+    $("#results").html('')
+    
     db.transaction(function (tx) {
+      console.log('*** transaction ');
         tx.executeSql(selectAllStatement, [], function (tx, result) {
+            var len = result.rows.length;
+            console.log('length '+len);
             dataset = result.rows;
+            
+            
             for (var i = 0, item = null; i < dataset.length; i++) {
- 
-                item = dataset.item(i);
-                items.push(item);
-
-                var d = item['date'];
-
                 
+                var itemw = dataset.item(i);
+                var dateNum = Date.parse(itemw.date);
+                var myDate = new Date(dateNum);
                 
-                var linkeditdelete = '<li>' + item['title'] + ' , ' + item['date'] + ' , ' + item['duration'] + '</li>';
- 
-                $("#results").append(linkeditdelete);
+
+                //items.push(item);
+
+                var d = weekday[myDate.getDay()];
+                var M = month[myDate.getMonth()];
+                console.log('count '+M);
+                var y = myDate.getFullYear();
+
+                var h = myDate.getHours();
+                var m = myDate.getMinutes();
+
+                $('#list .list').append('<li>'+itemw.title+' - ' + d +'-' + M + '-' + y + '-' + h +'h'+m+'m ' + itemw.duration + ' </li>')
+                //var d = item['date'];
+                //var linkeditdelete = '<li>' + item['title'] + ' , ' + item['date'] + ' , ' + item['duration'] + '</li>';
+                //$("#results").append(linkeditdelete);
  
             }
-            console.log('taille items '+items.length);
+            
+            
+            
  
         });
  
     });
+
+    console.log(items.length);
     return items;
  
 }
